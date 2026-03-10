@@ -140,3 +140,67 @@ Windows (宿主系统)
 
 ### LOTT 工程
 - 开始代码工程，准备自动化测试能力
+
+## 研究与执行 Know-How
+
+### 子任务 vs 直接执行
+- **使用子任务场景**:
+  - 复杂多步骤任务（如研报生成需要读取多份文件）
+  - 需要并行处理多个独立任务
+  - 长时间运行的任务
+  - 可能超时或失败的探索性任务
+- **直接执行场景**:
+  - 简单文件操作
+  - 快速检查（如心跳检查）
+  - 单次API调用
+
+### 网络工具限制
+- **web_search**: 需要 Brave API key（`openclaw configure --section web`）
+- **web_fetch**: 轻量级页面获取，无需认证
+- **无头浏览器**: 复杂反爬场景使用 browser 工具
+- **Chrome Relay**: 需要用户手动 Attach Tab，适合需要登录的反爬网站
+
+### 搜索技巧
+- 英文搜索有时比中文更有效
+- 多尝试不同关键词组合
+- 学术/研报类内容优先搜索标题+PDF
+
+### Git 操作
+- GitHub push 有时超时（443端口不稳定），本地领先时可先 rebase
+- 重要更改后及时 commit，避免堆积
+
+### 数据采集经验
+- **SHFE期货**: AkShare 可用，数据较完整
+- **DCE**: 有瑞数反爬，浏览器模拟困难
+- **CZCE/CFFEX**: 需要其他数据源或模拟浏览器
+
+## 2026-03-10 更新
+
+### 记忆备份 Cron（双重保障）
+| 时间 | 任务 |
+|------|------|
+| 23:00 | daily-memory-backup - 主动备份记忆 |
+| 00:00 | memory-backup-check - 检查昨天备份 |
+
+### 火山引擎研报任务
+- 用户要求详细高管履历（每人单独）、分国家区域分析
+- 删除风险章节，结论只留概括要点
+- 子任务并发限制5个，注意任务调度
+
+### Word文档更新教训
+- 问题：更新Word文档时内容丢失（47KB→18KB）
+- 原因：Python docx库处理复杂文档时可能丢内容
+- 教训：复杂文档用markdown管理，更新前必须备份
+
+### Word文档生成经验
+- 问题：直接调用python-docx失败（ModuleNotFoundError）
+- 解决：使用子任务（sessions_spawn）调用python-docx生成Word
+- 子任务中可以正确import docx模块并生成文档
+- 注意：markdown内容需先存为文件，子任务读取后转换
+
+### Chrome Relay 配置
+- **Gateway Token位置**: `~/.openclaw/openclaw.json` → `gateway.auth.token`
+- **当前Token**: `f8436e6580b68280db9d0867f0ed3e79f49d5f4ba34310c3`
+- **Token特性**: 固定不变，重启Gateway保持一致
+- **WSL限制**: WSL检测不到Windows Chrome，需用Chrome扩展连接
+- **扩展配置**: WebSocket URL + Token
