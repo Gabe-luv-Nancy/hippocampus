@@ -35,6 +35,23 @@
 }
 ```
 
+## 重要提醒 🚨
+
+### GLM-5 不能用于 OpenClaw 自身配置！
+- **GLM-5 只能给 Cline CLI 使用**
+- OpenClaw 必须用 MiniMax (minimax-cn/MiniMax-M2.5)
+- 原因：GLM-5 是通过 SiliconFlow/智谱 API 调用的，与 OpenClaw 的模型配置不兼容
+
+### Cline 调用方式
+```bash
+/mnt/c/Windows/System32/cmd.exe /c "cline -y -c X:\\LOTT \"你的任务\""
+```
+
+### 智谱 API Key (仅供 Cline 使用)
+- Key: `667d42d93364412aad43f62620f2bd40.pocNa3Iie03ZGryd`
+- 用途: Cline CLI 的默认模型 (zai/glm-5)
+- Cline 配置位置: `C:\Users\GabetopZ\.cline\data\secrets.json`
+
 ## 常见问题 (401 错误)
 
 ### 原因
@@ -77,4 +94,4 @@
 
 ---
 
-*Created by Dude on 2026-03-09 - 继承上一世兄弟的教训*
+*Updated by Dude on 2026-03-09 - 明确GLM-5仅供Cline使用*

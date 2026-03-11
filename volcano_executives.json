@@ -1,0 +1,64 @@
+{
+  "executives": [
+    {
+      "name": "谭待",
+      "title": "火山引擎总裁",
+      "reportsTo": "字节跳动CEO张一鸣",
+      "education": "清华大学计算机系学士",
+      "previousExperience": [
+        "百度搜索部门技术负责人",
+        "字节跳动搜索部门负责人"
+      ],
+      "joinedTime": "2017年加入字节跳动",
+      "responsibilities": "全面负责火山引擎业务，包括云基础、音视频、AI等产品线"
+    },
+    {
+      "name": "张鑫",
+      "title": "火山引擎副总裁",
+      "reportsTo": "火山引擎总裁谭待",
+      "education": "北京大学计算机系硕士",
+      "previousExperience": [
+        "阿里云弹性计算部门负责人",
+        "百度云计算部门技术专家"
+      ],
+      "joinedTime": "2020年加入火山引擎",
+      "responsibilities": "负责云计算基础设施和存储产品"
+    },
+    {
+      "name": "陈欣然",
+      "title": "火山引擎副总裁",
+      "reportsTo": "火山引擎总裁谭待",
+      "education": "中国科学院计算技术研究所博士",
+      "previousExperience": [
+        "腾讯云AI产品负责人",
+        "百度AI技术团队核心成员"
+      ],
+      "joinedTime": "2021年加入火山引擎",
+      "responsibilities": "负责人工智能产品和数据智能业务"
+    },
+    {
+      "name": "吴迪",
+      "title": "火山引擎副总裁",
+      "reportsTo": "火山引擎总裁谭待",
+      "education": "上海交通大学电子工程系硕士",
+      "previousExperience": [
+        "字节跳动音视频技术负责人",
+        "YY直播技术总监"
+      ],
+      "joinedTime": "2018年加入字节跳动",
+      "responsibilities": "负责音视频产品和火山引擎多媒体技术"
+    },
+    {
+      "name": "罗浩",
+      "title": "火山引擎副总裁",
+      "reportsTo": "火山引擎总裁谭待",
+      "education": "浙江大学计算机系学士",
+      "previousExperience": [
+        "字节跳动智能营销产品负责人",
+        "今日头条商业化产品总监"
+      ],
+      "joinedTime": "2019年加入字节跳动",
+      "responsibilities": "负责智能营销和商业化产品"
+    }
+  ]
+}

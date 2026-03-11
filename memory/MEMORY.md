@@ -1,12 +1,12 @@
 # 记忆系统状态
 
-## 最后更新: 2026-03-11 23:00
+## 最后更新: 2026-03-11 23:55
 
 ### 系统状态
 
 - **MemOS**: ✅ 正常运行 (1个插件已加载, 0个错误)
 - **数据库**: ✅ 存在 (253KB, 最后更新: 2026-03-10 23:30)
-- **传统记忆文件**: ✅ 12个文件
+- **传统记忆文件**: ✅ 13个文件（含今日新增 2026-03-11.md）
 
 ### Cron 任务状态
 
@@ -44,6 +44,12 @@
 
 ## 重要项目
 
+### 2026-03-11 日常工作
+- **公司登记表单分析**: 分析微信图片提取24个字段，生成 xlsx/csv 文件
+- **LO TT TimescaleDB 集成**: 创建 timescaleDB 配置、连接、表结构、JSON导入器等6个文件
+- **Cline 集成环境配置**: 创建 cline_runner.py，配置 Windows Cline 调用（CLI路径已记录）
+- **重要警告**: 禁止使用 GLM-5，所有代码生成必须通过 Cline 执行
+
 ### 火山引擎研究报告 (2026-03-10)
 - 字节跳动高管团队：梁汝波、周受资、张楠、陈熙、刘思齐、朱骏
 - 火山引擎管理团队：谭待（百度背景）、张鑫、陈欣然、吴迪、罗浩
@@ -76,6 +82,7 @@
 - 2026-03-10.md
 - 2026-03-11.md
 - CORE_AI_INTEGRATION.md
+- **CLINE_SUBTASK_GUIDE.md** ← 重要！Cline调用全流程
 - IMPORTED_CONFIG.md
 - LOTT_CLINE_INTEGRATION.md
 - LOTT_CLINE_TEMPLATES.md
@@ -86,6 +93,35 @@
 - SECURITY.md
 - requirements-simnow.md
 - 量化交易技术方案-CTP与数据源.md
+
+---
+
+## 📌 每日必读
+
+### Cline 子任务调用流程
+**文件**: `CLINE_SUBTASK_GUIDE.md`
+
+当需要通过 Cline 执行代码生成任务时，必须：
+1. **调用方式**: 通过 `cline_runner.py` → PowerShell → Windows Python
+2. **核心命令**: 
+   ```
+   /mnt/c/Windows/System32/WindowsPowerShell/v1.0/powershell.exe -Command "python ..."
+   ```
+3. **任务模板**: 参考 `CLINE_SUBTASK_GUIDE.md` 中的模板构建任务
+4. **验证**: 任务完成后必须通过 Windows Python 验证执行结果
+
+### TimescaleDB 模块
+**目录**: `X:\LOTT\src\Data\DatabaseManager\`
+
+| 文件 | 用途 |
+|------|------|
+| timescale_config.py | 配置 |
+| timescale_connection.py | 连接管理 |
+| timescale_tables.py | 表结构 |
+| json_importer.py | JSON导入 |
+| timescale_examples.py | 示例 |
+
+**数据库**: localhost:5432, lott, admin/admin123
 
 ---
 *双重记忆保障: MemOS (数据库) + 文件系统 (markdown)*
