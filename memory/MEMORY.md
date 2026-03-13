@@ -1,6 +1,6 @@
 # 记忆系统状态
 
-## 最后更新: 2026-03-11 23:55
+## 最后更新: 2026-03-13 09:15
 
 ### 系统状态
 
@@ -44,6 +44,12 @@
 
 ## 重要项目
 
+### 2026-03-12 日常工作
+- **ClawdHub CLI 安装**: 成功安装 ClawdHub CLI (v0.3.0) 用于管理 skills
+- **Skills 大规模安装**: 从 Downloads 目录解压安装21个 skills
+- **Hooks 讨论**: 解释4个已安装 hooks 的用途（全部 ✓ ready 状态）
+- **Cron 任务故障**: 晚间记忆备份任务因 delivery.channel 未配置持续失败 🔴
+
 ### 2026-03-11 日常工作
 - **公司登记表单分析**: 分析微信图片提取24个字段，生成 xlsx/csv 文件
 - **LO TT TimescaleDB 集成**: 创建 timescaleDB 配置、连接、表结构、JSON导入器等6个文件
@@ -81,6 +87,7 @@
 - 2026-03-05.md
 - 2026-03-10.md
 - 2026-03-11.md
+- 2026-03-12.md ← 补做（cron 故障后手动创建）
 - CORE_AI_INTEGRATION.md
 - **CLINE_SUBTASK_GUIDE.md** ← 重要！Cline调用全流程
 - IMPORTED_CONFIG.md
