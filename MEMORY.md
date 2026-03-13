@@ -204,3 +204,15 @@ Windows (宿主系统)
 - **Token特性**: 固定不变，重启Gateway保持一致
 - **WSL限制**: WSL检测不到Windows Chrome，需用Chrome扩展连接
 - **扩展配置**: WebSocket URL + Token
+
+## 2026-03-12 问题记录
+
+### Cron 记忆备份任务故障 🔴
+- **问题**: 记忆备份 cron 任务持续失败
+- **错误信息**: "Channel is required (no configured channels detected). Set delivery.channel explicitly or use a main session with a previous channel."
+- **受影响任务**:
+  - `memory-backup-evening` (23:00) - 连续2次错误
+  - `memory-backup-check` (00:00) - 连续2次错误
+  - `memory-check-double` (08:00) - 当前运行中但状态error
+- **原因分析**: delivery.mode 设为 "announce" 但未配置 channel
+- **解决方案**: 需要修改 cron job 配置，添加 delivery.channel 或改用 main session
