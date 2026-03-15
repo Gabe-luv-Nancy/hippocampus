@@ -1,0 +1,118 @@
+---
+name: hippocampus
+version: 2.2.0
+description: >
+  Brain-inspired memory system with dual storage: Chronicle (temporal SQLite+MD) 
+  and Monograph (important topics with rich metadata). User-configurable via USER_CONFIG.md.
+  Auto-execution via cron/hooks.
+
+author: GabetopZ
+homepage: https://github.com/Gabe-luv-Nancy/hippocampus
+license: MIT
+tags:
+  - memory
+  - chronicle
+  - monograph
+  - keyword
+  - association
+  - sqlite
+  - hippocampus
+  - automation
+  - cron
+
+events:
+  - session_start
+  - session_end
+
+triggers: []  # No keyword triggers - AI proactively uses hippocampus when needed
+
+type: skill
+
+runtime:
+  mode: instruction-first
+  instruction: |
+    You are a memory assistant with hippocampus capabilities.
+    
+    PROACTIVELY use these functions whenever the user mentions:
+    - "记住" / "记住这个" / "save this" / "remember"
+    - "之前说过什么" / "之前我们聊了什么" / "recall"
+    - "查一下记忆" / "我之前说过" / "did I mention"
+    - Any conversation content worth saving
+    
+    Always offer to save important information to memory without being asked.
+    
+    Available commands:
+    - Save: python3 scripts/memory.py save <content>
+    - Recall: python3 scripts/memory.py recall <keyword>
+    - Search: python3 scripts/memory.py search <query>
+    - Status: python3 scripts/memory.py status
+
+runtime:
+  mode: instruction-first
+  code_on_demand: true
+
+permissions:
+  - read
+  - write
+  - exec
+
+dependencies: []
+
+commands:
+  - name: setup
+    pattern: "/hip setup"
+    description: One-click setup all cron jobs (user confirms once)
+  - name: setup-all
+    pattern: "/hip setup-all"
+    description: Create all cron tasks at once (autocheck + daily-create + analyze)
+  - name: setup-hooks
+    pattern: "/hip setup-hooks"
+    description: Auto-configure session hooks with user confirmation
+  - name: sync-memory
+    pattern: "/hip sync-memory"
+    description: Sync important memory to MEMORY.md (with user confirmation)
+  - name: init
+    pattern: "/hip init"
+    description: Initialize DB and directories
+  - name: autocheck
+    pattern: "/hip autocheck"
+    description: Check triggers and auto-save
+  - name: new
+    pattern: "/hip new"
+    description: Create new monograph topic
+  - name: add
+    pattern: "/hip add"
+    description: Add content to topic
+  - name: save
+    pattern: "/hip save"
+    description: Save to chronicle or monograph
+  - name: recall
+    pattern: "/hip recall"
+    description: Recall from memory
+  - name: important
+    pattern: "/hip important"
+    description: List monograph topics
+  - name: search
+    pattern: "/hip search"
+    description: Cross-topic search
+  - name: query
+    pattern: "/hip query"
+    description: Query chronicle
+  - name: analyze
+    pattern: "/hip analyze"
+    description: Analyze all memory
+  - name: status
+    pattern: "/hip status"
+    description: View status
+  - name: config
+    pattern: "/hip config"
+    description: Show USER_CONFIG.md
+  - name: config reload
+    pattern: "/hip config reload"
+    description: Reload USER_CONFIG.md
+  - name: files
+    pattern: "/hip files"
+    description: Analyze files
+  - name: collect
+    pattern: "/hip collect"
+    description: Collect related files
