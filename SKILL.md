@@ -294,11 +294,13 @@ hippocampus/                   (SKILL PACKAGE - Git tracked)
 └── scripts/
     └── memory.py              # Core engine
 
-assets/hippocampus/            (CREATED AT RUNTIME - NOT tracked)
-├── chronicle/
-│   └── db.sqlite             # SQLite index (auto-created)
-├── monograph/                 # Important topics (auto-created)
-└── index/                     # Keyword index (auto-created)
+assets/hippocampus/            (USER DATA - Not tracked)
+├── chronicle/                 # Temporal memory (daily sessions)
+│   └── YYYY-MM-DD-topic.md   # Example: 2026-03-15-project-planning.md
+├── monograph/                 # Important topics (rich metadata)
+│   ├── memory-system-architecture.md
+│   └── automated-workflow-patterns.md
+└── index/                     # Keyword index (auto-created at runtime)
 ```
 
 ---

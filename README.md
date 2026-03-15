@@ -60,7 +60,27 @@ hippocampus/
 ├── skill.yaml         # Metadata
 └── scripts/
     └── memory.py      # Core engine
+
+assets/hippocampus/    # User data directory
+├── chronicle/         # Temporal memory (daily sessions)
+│   ├── 2026-03-15-project-planning.md
+│   └── 2026-03-10-technical-research.md
+└── monograph/         # Important topics
+    ├── memory-system-architecture.md
+    └── automated-workflow-patterns.md
 ```
+
+## File Formats
+
+### Chronicle Files
+Temporal memory stored as markdown files with YAML frontmatter:
+- Filename format: `YYYY-MM-DD-topic.md` (uses dashes, not colons)
+- Frontmatter includes: date, time, participants, topic, tags
+
+### Monograph Files
+Important topics with rich metadata:
+- Frontmatter includes: keywords (word frequency based), associations (AI generated)
+- Body includes: creator, type, digest, key steps, duration, errors, conclusions, to-do, principles, key info
 
 ## License
 
