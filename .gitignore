@@ -1,0 +1,25 @@
+# Git Ignore
+# Do NOT commit these files - they are created at runtime
+
+# Git internal
+.git/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.swp
