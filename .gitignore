@@ -23,3 +23,6 @@ Thumbs.db
 # Temporary files
 *.tmp
 *.swp
+
+# Runtime data (generated at runtime)
+assets/
