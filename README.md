@@ -61,14 +61,17 @@ hippocampus/
 └── scripts/
     └── memory.py      # Core engine
 
-assets/hippocampus/    # User data directory
-├── chronicle/         # Temporal memory (daily sessions)
-│   ├── 2026-03-15-project-planning.md
-│   └── 2026-03-10-technical-research.md
-└── monograph/         # Important topics
-    ├── memory-system-architecture.md
-    └── automated-workflow-patterns.md
+assets/hippocampus/    # User data directory (created on first use)
+├── chronicle/         # Temporal memory (AI will offer to create examples)
+├── monograph/         # Important topics (AI will offer to create examples)
+└── index/             # Keyword index (auto-created)
 ```
+
+## First Time Setup
+
+On first use, the AI will ask if you want to create example memory files to demonstrate the format. Say "yes" or "create" to generate:
+- Chronicle examples: Daily session notes with YAML frontmatter
+- Monograph examples: Important topics with keywords, associations, and structured sections
 
 ## File Formats
 

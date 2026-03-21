@@ -42,6 +42,115 @@ runtime:
     
     AUTOMATICALLY offer to save without explicit commands.
     
+    ## FIRST TIME SETUP - OFFER EXAMPLE FILES
+    On FIRST USE (when chronicle and monograph directories are empty), ASK the user:
+    "Would you like me to create some example memory files to demonstrate the format? 
+    This includes example chronicle entries (daily session notes) and monograph topics (important 
+    documents with keywords, associations, and structured sections)."
+    
+    If user agrees (says "yes", "create", "sure", etc.):
+    1. Run: python3 scripts/memory.py init
+    2. Create chronicle examples in assets/chronicle/ with filename format YYYY-MM-DD-topic.md (use dashes, not colons)
+    3. Create monograph examples in assets/monograph/ with proper YAML frontmatter
+    4. Index the examples: python3 scripts/memory.py analyze
+    
+    ## CHRONICLE EXAMPLE FORMAT
+    Create files like: assets/chronicle/2026-03-15-project-planning.md
+    ```
+    ---
+    date: "2026-03-15"
+    time: "14:30-15:45"
+    participants:
+      - AI Assistant
+      - User
+    topic: "Project Planning Discussion"
+    tags:
+      - planning
+      - project
+      - discussion
+    ---
+    
+    # Session Notes: Project Planning Discussion
+    
+    ## Summary
+    [Brief overview of what was discussed]
+    
+    ## Key Points
+    - Point 1
+    - Point 2
+    
+    ## Action Items
+    - [ ] Action item 1
+    - [ ] Action item 2
+    
+    ## Next Steps
+    [What comes next]
+    ```
+    
+    ## MONOGRAPH EXAMPLE FORMAT
+    Create files like: assets/monograph/memory-system-architecture.md
+    ```
+    ---
+    keywords:
+      - memory (word frequency based, most common first)
+      - system
+      - automation
+      - keyword
+      - indexing
+    associations:
+      - keyword -> search
+      - memory -> retention
+      - automation -> efficiency
+    type: "system-design"
+    created: "2026-03-14"
+    modified: "2026-03-15"
+    ---
+    
+    # [Title]
+    
+    ## Overview
+    [Brief description]
+    
+    ## Creator
+    [Who created this document]
+    
+    ## Type
+    [Document type: system-design, process-guide, reference, etc.]
+    
+    ## Digest
+    [A brief summary - 1-2 sentences]
+    
+    ## Key Steps
+    ### Phase 1: [Name]
+    - Step detail
+    
+    ## Time Duration
+    [How long this took]
+    
+    ## Errors and Trials
+    ### Error 1: [Title]
+    - Problem: [What went wrong]
+    - Solution: [How it was fixed]
+    - Result: [Outcome]
+    
+    ## Conclusions
+    [What was learned]
+    
+    ## To-Do List and Unfinished Items
+    - [ ] Item 1
+    - [ ] Item 2
+    
+    ## Principles and Requirements
+    ### Principles
+    1. [Principle 1]
+    
+    ### Requirements
+    - [Requirement 1]
+    
+    ## Key Information
+    | Component | Technology | Purpose |
+    ```
+    
     ## AUTO-DETECT EXAMPLES (No Keywords Needed)
     - "remember what we discussed" → Save to memory
     - "did I mention..." → Search memory
@@ -265,7 +374,7 @@ AFTER_ANSWER = conversation_summary
 ├─────────────────────────────────────────────────┤
 │  • TIME_HOURS: Every 6 hours (cron)            │
 │  • ROUND_THRESHOLD: Every 25 rounds             │
-│  • TOKEN_THRESHOLD: When tokens > 10,000         │
+│  • TOKEN_THRESHOLD: When tokens > 10,000        │
 └─────────────────────────────────────────────────┘
                     ↓
 ┌─────────────────────────────────────────────────┐
@@ -287,20 +396,17 @@ AFTER_ANSWER = conversation_summary
 
 ```
 hippocampus/                   (SKILL PACKAGE - Git tracked)
-├── SKILL.md                   # This file
+├── SKILL.md                   # This file (includes instructions for AI to create examples)
 ├── USER_CONFIG.md             # User settings (edit this!)
 ├── skill.yaml                 # Metadata
 ├── .gitignore                 # Excludes db files
 └── scripts/
     └── memory.py              # Core engine
 
-assets/hippocampus/            (USER DATA - Not tracked)
-├── chronicle/                 # Temporal memory (daily sessions)
-│   └── YYYY-MM-DD-topic.md   # Example: 2026-03-15-project-planning.md
-├── monograph/                 # Important topics (rich metadata)
-│   ├── memory-system-architecture.md
-│   └── automated-workflow-patterns.md
-└── index/                     # Keyword index (auto-created at runtime)
+assets/hippocampus/            (USER DATA - Created on first use)
+├── chronicle/                 # Temporal memory (AI will offer to create examples)
+├── monograph/                # Important topics (AI will offer to create examples)
+└── index/                    # Keyword index (auto-created at runtime)
 ```
 
 ---
@@ -350,7 +456,6 @@ assets/hippocampus/            (USER DATA - Not tracked)
 
 ## Author
 
-- 
 - GitHub: Gabe-luv-Nancy
-- Version: 2.1.0
+- Version: 2.2.0
 - Created: 2026-03-14
