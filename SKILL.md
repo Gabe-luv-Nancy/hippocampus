@@ -1,30 +1,31 @@
 ---
 name: hippocampus
-version: 2.2.0
+version: 3.0.0
 description: >
-  Brain-inspired memory system with dual storage: Chronicle (temporal SQLite+MD) 
-  and Monograph (important topics with rich metadata). User-configurable via USER_CONFIG.md.
-  Auto-execution via cron/hooks.
+  Photon: AI-enhanced memory system that FIXES human memory flaws.
+  NO DECAY - AI never forgets.
+  Features: tool success tracking, project checkpoints, failure pattern warning, knowledge graph.
+  Philosophy: "AI is meant to FIX human memory flaws, why learn human decay?"
 
 author: GabetopZ
 homepage: https://github.com/Gabe-luv-Nancy/hippocampus
 license: MIT
 tags:
   - memory
-  - chronicle
-  - monograph
-  - keyword
-  - association
-  - sqlite
-  - hippocampus
-  - automation
-  - cron
+  - photon
+  - checkpoint
+  - success-tracking
+  - failure-warning
+  - knowledge-graph
 
-events:
-  - session_start
-  - session_end
+# Note: session hooks require manual configuration
+# See README.md for cron-based alternatives
 
-triggers: []  # No keyword triggers needed - AI proactively uses hippocampus
+triggers:
+  - remember
+  - recall
+  - checkpoint
+  - warn
 
 type: skill
 
@@ -32,323 +33,197 @@ runtime:
   mode: instruction-first
   code_on_demand: true
   instruction: |
-    ## HIPPOCAMUS MEMORY SYSTEM - PROACTIVE MODE
+    ## HIPPOCAMPUS PHOTON - ENHANCED MEMORY
     
-    You are a memory assistant. PROACTIVELY use hippocampus functions when:
-    - User says anything worth remembering ("remember", "save this", "note that")
-    - User asks about past conversations ("what did I say before", "recall")
-    - User wants to search memory ("search memory", "find")
-    - Important information comes up in conversation
+    Philosophy: AI should ENHANCE human memory, not imitate its flaws.
+    Traditional memory systems use decay (0.99^days) - THIS IS WRONG.
+    AI NEVER FORGETS. That's the point.
     
-    AUTOMATICALLY offer to save without explicit commands.
+    ### Core Features (No Decay)
     
-    ## AUTO-DETECT EXAMPLES (No Keywords Needed)
-    - "remember what we discussed" → Save to memory
-    - "did I mention..." → Search memory
-    - "this is important, do not forget" → Save to memory
-    - "help me find last week..." → Recall memory
+    1. **Tool/Command Success Tracking**
+       - Remember which commands work/fail
+       - Track model performance on tasks
     
-    Just execute: python3 /path/to/scripts/memory.py <command>
+    2. **Project Checkpoints**
+       - Not "recent discussion" but "exactly where we left off"
+       - Precise project state storage
+    
+    3. **Failure Pattern Warning**
+       - Remember what causes failures
+       - Warn proactively before repeating
+    
+    4. **Session Continuity**
+       - Know what was being done, not just discussed
+    
+    5. **Knowledge Graph**
+       - Networked: Skill → Project → Goal
+    
+    ### Trigger Keywords
+    When user says:
+    - remember, recall, checkpoint
+    - where did we leave off
+    - what was i working on
+    - warn me about
+    
+    ### Available Commands
+    - /photon status - View status
+    - /photon save - Save context
+    - /photon recall <query> - Precise recall
+    - /photon checkpoint - Save project state
+    - /photon warn - Check failure patterns
+    
+    Execute: python3 scripts/memory.py <command>
 
 permissions:
   - read
   - write
   - exec
 
-dependencies: []
+dependencies:
+  - python3 >= 3.8
 
 commands:
-  - name: init
-    pattern: "/hip init"
-    description: Initialize DB and directories
-  - name: autocheck
-    pattern: "/hip autocheck"
-    description: Check triggers and auto-save
-  - name: setup
-    pattern: "/hip setup"
-    description: One-shot setup all cron jobs (user confirms once)
-  - name: setup-all
-    pattern: "/hip setup-all"
-    description: Create all cron tasks at once (autocheck + daily-create + analyze)
-  - name: setup-hooks
-    pattern: "/hip setup-hooks"
-    description: Auto-configure session hooks with user confirmation
-  - name: sync-memory
-    pattern: "/hip sync-memory"
-    description: Sync important memory to MEMORY.md (with user confirmation)
-  - name: new
-    pattern: "/hip new"
-    description: Create new monograph topic
-  - name: add
-    pattern: "/hip add"
-    description: Add content to topic
-  - name: save
-    pattern: "/hip save"
-    description: Save to chronicle or monograph
-  - name: recall
-    pattern: "/hip recall"
-    description: Recall from memory
-  - name: important
-    pattern: "/hip important"
-    description: List monograph topics
-  - name: search
-    pattern: "/hip search"
-    description: Cross-topic search
-  - name: query
-    pattern: "/hip query"
-    description: Query chronicle
-  - name: analyze
-    pattern: "/hip analyze"
-    description: Analyze all memory
   - name: status
-    pattern: "/hip status"
-    description: View status
-  - name: config
-    pattern: "/hip config"
-    description: Show USER_CONFIG.md
-  - name: config reload
-    pattern: "/hip config reload"
-    description: Reload USER_CONFIG.md
-  - name: files
-    pattern: "/hip files"
-    description: Analyze files
-  - name: collect
-    pattern: "/hip collect"
-    description: Collect related files
+    pattern: "/photon status"
+    description: View memory status
+  - name: save
+    pattern: "/photon save"
+    description: Save current context
+  - name: recall
+    pattern: "/photon recall"
+    description: Precise recall
+  - name: checkpoint
+    pattern: "/photon checkpoint"
+    description: Save project state
+  - name: warn
+    pattern: "/photon warn"
+    description: Check failure patterns
+  - name: graph
+    pattern: "/photon graph"
+    description: View knowledge graph
 ---
 
-# Hippocampus
+# Hippocampus Photon
 
-> Brain-inspired memory system with automatic execution
+> "AI is meant to FIX human memory flaws, why learn human decay?"
 
-## Why Setup Is Needed
+## Hooks & Automation
 
-**Automatic creation is NOT possible because:**
+**Note:** OpenClaw hook system uses "hook packs" - may require manual setup.
 
-1. **OpenClaw Hooks**: Built-in hooks require manual user configuration
-2. **Cron Jobs**: Cannot be created automatically - requires explicit user authorization
-3. **Security**: OpenClaw requires user confirmation for any automatic tasks
+For auto-save, use cron jobs (recommended) instead of session hooks.
 
-**This is by design** - it ensures you have full control over what automatic tasks run on your system.
+## Philosophy
 
----
+**Traditional memory = Human memory imitation = DECAY = WRONG**
 
-## Quick Setup (Takes 30 seconds)
+AI should FIX human memory flaws:
+- ❌ Forgetting → ✅ Perfect recall
+- ❌ Fuzzy matching → ✅ Precise timestamps  
+- ❌ Passive triggers → ✅ Proactive warnings
+- ❌ Importance decay → ✅ Never lose anything
 
-After installation, simply say **"setup hippocampus"** or **"configure memory"** and I will guide you through the setup process.
+## Features
 
-### What Will Happen
+| Feature | Description |
+|---------|-------------|
+| **No Decay** | AI never forgets |
+| **Checkpoints** | Know exactly where project left off |
+| **Success Tracking** | Remember what works/fails |
+| **Failure Warning** | Proactive pattern detection |
+| **Knowledge Graph** | Networked memory |
 
-1. **I show you** all cron jobs that will be created
-2. **You confirm ONCE** by saying "yes" or "confirm"
-3. **I execute all at once** - no repeated approvals
-4. **Done!** Automatic memory saving is enabled
+## Setup (REQUIRED!)
 
-### What Gets Created
-
-| Job | Schedule | Purpose |
-|-----|----------|---------|
-| hippocampus-autosave | 0 */6 * * * | Auto-save every 6 hours |
-| hippocampus-daily-create | 0 0 * * * | Create daily memory file |
-| hippocampus-analyze | 0 23 * * * | Daily memory analysis |
-
----
-
-## Hook Setup (One-Click)
-
-Say **"setup hooks"** or **"/hip setup-hooks"** and I will:
-
-1. Show what hooks will be configured
-2. Ask for your confirmation once
-3. Auto-configure session_start/session_end hooks
-
----
-
-## Manual Setup (Alternative)
-
-If you prefer to do it yourself, here are the commands:
+After installing, you MUST run initialization:
 
 ```bash
-# Step 1: Initialize database (do this once)
+cd /path/to/hippocampus
 python3 scripts/memory.py init
+```
 
-# Step 2: Create cron job
-# Copy this command and run it yourself:
-cron add --name "hippocampus-autosave" \
+This creates:
+- assets/hippocampus/chronicle/db.sqlite
+- assets/hippocampus/monograph/
+- assets/hippocampus/index/
+
+Then verify with:
+```bash
+python3 scripts/memory.py status
+```
+
+### Cron Jobs (Required!)
+
+Automatic memory saving requires cron jobs. **User must confirm once:**
+
+```bash
+# Auto-save every 6 hours
+openclaw cron add --name "hippocampus-autosave" \
   --schedule "0 */6 * * *" \
   --session-target isolated \
-  --payload "Run: python3 /path/to/hippocampus/scripts/memory.py autocheck"
+  --payload "Run: python3 /path/to/scripts/memory.py autocheck"
 
-# Step 3: Verify
-cron list
+# Daily at 7 AM
+openclaw cron add --name "hippocampus-daily" \
+  --schedule "0 7 * * *" \
+  --session-target isolated \
+  --payload "Run: python3 /path/to/scripts/memory.py new daily-YYYY-MM-DD"
+
+# Daily analysis at 11 PM - analyze chronicle, promote to monograph
+openclaw cron add --name "hippocampus-analyze" \
+  --schedule "0 23 * * *" \
+  --session-target isolated \
+  --payload "Run: python3 /path/to/scripts/memory.py analyze"
 ```
 
----
+### Cron Jobs (Auto-created!)
 
-## User Configuration
+When user runs "setup hippocampus" or "/photon setup", AI automatically creates:
 
-Edit **USER_CONFIG.md** to customize behavior before or after setup:
+1. **hippocampus-autosave** - Every 6 hours
+2. **hippocampus-daily** - Daily at 7 AM  
+3. **hippocampus-analyze** - Daily at 11 PM
 
-```markdown
-# Trigger Settings
-ROUND_THRESHOLD = 25       # Save after X rounds
-TIME_HOURS = 6            # Save after X hours
-TOKEN_THRESHOLD = 10000   # Save to Monograph when tokens > X
+These cron jobs provide automatic memory saving (replaces session hooks).
 
-# Storage Settings
-BASE_PATH = ./assets/hippocampus
+### Two Memory Types
 
-# Auto-Save
-AUTO_SAVE = true
+**Chronicle** - Temporal memory for everyday interactions
+- Automatically saves session content
+- Indexed by time
+
+**Monograph** - Important topics with rich metadata
+- Stores significant memories, decisions, preferences
+- Created via user request or auto-analysis
+
+### Monograph Creation
+
+**1. User Explicit:**
+```bash
+python3 scripts/memory.py new "Important Topic"
+python3 scripts/memory.py add "Key content..."
 ```
 
-After editing, run: `/hip config reload`
-
----
-
-## Special Needs - Before/After Answer Memory
-
-Hippocampus supports special memory types that are loaded before or after each answer:
-
-### BEFORE_ANSWER
-
-Memory that should be loaded and considered **before each response**.
-
-Use cases:
-
-- Language preferences (e.g., "always use English")
-- Style guidelines (e.g., "use technical terms")
-- User-specific requirements
-
-Example:
-
-```markdown
-BEFORE_ANSWER = language_preferences
+**2. Auto-Analysis:**
+```bash
+python3 scripts/memory.py analyze  # Examines chronicle, promotes to monograph
 ```
 
-Create a monograph topic called "language_preferences" with your requirements.
+### Keyword Index
 
-### AFTER_ANSWER
+- Auto-generated in `index/` directory
+- Each keyword creates a .md reference file
+- Enables fast cross-topic search
 
-Memory that should be **updated after each response**.
+## Commands
 
-Use cases:
+- `/photon status` - View status
+- `/photon save` - Save context  
+- `/photon recall <query>` - Recall
+- `/photon checkpoint` - Save state
+- `/photon warn` - Check patterns
 
-- Conversation summary updates
-- Key points tracking
-- Context continuity
+## Version
 
-Example:
-
-```markdown
-AFTER_ANSWER = conversation_summary
-```
-
-### How to Use
-
-1. Create a monograph topic: `/hip new language_preferences`
-2. Add content to it: `/hip add Always use English...`
-3. Edit USER_CONFIG.md:
-   
-   ```
-   BEFORE_ANSWER = language_preferences
-   ```
-4. Reload: `/hip config reload`
-
----
-
-## How Auto-Execution Works
-
-```
-┌─────────────────────────────────────────────────┐
-│  TRIGGERS (from USER_CONFIG.md)                │
-├─────────────────────────────────────────────────┤
-│  • TIME_HOURS: Every 6 hours (cron)            │
-│  • ROUND_THRESHOLD: Every 25 rounds             │
-│  • TOKEN_THRESHOLD: When tokens > 10,000         │
-└─────────────────────────────────────────────────┘
-                    ↓
-┌─────────────────────────────────────────────────┐
-│  autocheck command                              │
-│  (checks all thresholds)                        │
-└─────────────────────────────────────────────────┘
-                    ↓
-┌─────────────────────────────────────────────────┐
-│  SAVE DECISION                                  │
-├─────────────────────────────────────────────────┤
-│  • Tokens > TOKEN_THRESHOLD → Monograph         │
-│  • Otherwise → Chronicle                        │
-└─────────────────────────────────────────────────┘
-```
-
----
-
-## File Structure
-
-```
-hippocampus/                   (SKILL PACKAGE - Git tracked)
-├── SKILL.md                   # This file
-├── USER_CONFIG.md             # User settings (edit this!)
-├── skill.yaml                 # Metadata
-├── .gitignore                 # Excludes db files
-└── scripts/
-    └── memory.py              # Core engine
-
-assets/hippocampus/            (CREATED AT RUNTIME - NOT tracked)
-├── chronicle/
-│   └── db.sqlite             # SQLite index (auto-created)
-├── monograph/                 # Important topics (auto-created)
-└── index/                     # Keyword index (auto-created)
-```
-
----
-
-## All Commands
-
-| Command                 | Description                   |
-| ----------------------- | ----------------------------- |
-| `/hip setup` / `/hip setup-all` | One-click setup all cron jobs |
-| `/hip setup-hooks`     | Auto-configure session hooks  |
-| `/hip sync-memory`      | Sync to MEMORY.md (with confirm) |
-| `/hip init`             | Initialize DB and directories |
-| `/hip autocheck`        | Check triggers and auto-save  |
-| `/hip new <topic>`      | Create new monograph          |
-| `/hip add <content>`    | Add to current topic          |
-| `/hip save`             | Save to chronicle/monograph   |
-| `/hip recall <keyword>` | Recall from memory            |
-| `/hip important`        | List monograph topics         |
-| `/hip search <keyword>` | Cross-topic search            |
-| `/hip query [keyword]`  | Query chronicle               |
-| `/hip analyze`          | Analyze all memory            |
-| `/hip status`           | View status                   |
-| `/hip config`           | Show USER_CONFIG.md           |
-| `/hip config reload`    | Reload config                 |
-| `/hip files`            | Analyze files                 |
-| `/hip collect`          | Collect related files         |
-
----
-
-## Important Notes
-
-1. **Setup is OPTIONAL**: You can use the skill manually without cron
-2. **YOU control what runs**: Cron jobs can be deleted anytime with `cron remove`
-3. **Data stays local**: All memory files are stored in your workspace
-4. **USER_CONFIG.md**: The ONLY file you should edit
-
----
-
-## Privacy & Security
-
-- **No external servers**: All data stays on your machine
-- **No automatic tasks without consent**: You must confirm setup
-- **You can disable anytime**: Edit USER_CONFIG.md or remove cron job
-- **Transparent**: All code is readable in memory.py
-
----
-
-## Author
-
-- 
-- GitHub: Gabe-luv-Nancy
-- Version: 2.1.0
-- Created: 2026-03-14
+3.0.0 (Photon)

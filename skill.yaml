@@ -1,51 +1,33 @@
 ---
 name: hippocampus
-version: 2.2.0
+version: 3.0.0
 description: >
-  Brain-inspired memory system with dual storage: Chronicle (temporal SQLite+MD) 
-  and Monograph (important topics with rich metadata). User-configurable via USER_CONFIG.md.
-  Auto-execution via cron/hooks.
+  Photon: AI-enhanced memory system that FIXES human memory flaws.
+  NO DECAY - AI never forgets.
+  Features: tool success tracking, project checkpoints, failure pattern warning, knowledge graph.
+  Philosophy: "AI is meant to FIX human memory flaws, why learn human decay?"
 
 author: GabetopZ
 homepage: https://github.com/Gabe-luv-Nancy/hippocampus
 license: MIT
 tags:
   - memory
-  - chronicle
-  - monograph
-  - keyword
-  - association
-  - sqlite
-  - hippocampus
-  - automation
-  - cron
+  - photon
+  - checkpoint
+  - success-tracking
+  - failure-warning
+  - knowledge-graph
 
 events:
-  - session_start
   - session_end
 
-triggers: []  # No keyword triggers - AI proactively uses hippocampus when needed
+triggers:
+  - remember
+  - recall
+  - checkpoint
+  - warn
 
 type: skill
-
-runtime:
-  mode: instruction-first
-  instruction: |
-    You are a memory assistant with hippocampus capabilities.
-    
-    PROACTIVELY use these functions whenever the user mentions:
-    - "remember", "save this", "note that"
-    - "what did I say before", "recall"
-    - "search memory", "find"
-    - Any conversation content worth saving
-    
-    Always offer to save important information to memory without being asked.
-    
-    Available commands:
-    - Save: python3 scripts/memory.py save <content>
-    - Recall: python3 scripts/memory.py recall <keyword>
-    - Search: python3 scripts/memory.py search <query>
-    - Status: python3 scripts/memory.py status
 
 runtime:
   mode: instruction-first
@@ -56,63 +38,34 @@ permissions:
   - write
   - exec
 
-dependencies: []
+dependencies:
+  - python3 >= 3.8
 
 commands:
-  - name: setup
-    pattern: "/hip setup"
-    description: One-click setup all cron jobs (user confirms once)
-  - name: setup-all
-    pattern: "/hip setup-all"
-    description: Create all cron tasks at once (autocheck + daily-create + analyze)
-  - name: setup-hooks
-    pattern: "/hip setup-hooks"
-    description: Auto-configure session hooks with user confirmation
-  - name: sync-memory
-    pattern: "/hip sync-memory"
-    description: Sync important memory to MEMORY.md (with user confirmation)
   - name: init
-    pattern: "/hip init"
-    description: Initialize DB and directories
-  - name: autocheck
-    pattern: "/hip autocheck"
-    description: Check triggers and auto-save
-  - name: new
-    pattern: "/hip new"
-    description: Create new monograph topic
-  - name: add
-    pattern: "/hip add"
-    description: Add content to topic
-  - name: save
-    pattern: "/hip save"
-    description: Save to chronicle or monograph
-  - name: recall
-    pattern: "/hip recall"
-    description: Recall from memory
-  - name: important
-    pattern: "/hip important"
-    description: List monograph topics
-  - name: search
-    pattern: "/hip search"
-    description: Cross-topic search
-  - name: query
-    pattern: "/hip query"
-    description: Query chronicle
-  - name: analyze
-    pattern: "/hip analyze"
-    description: Analyze all memory
+    pattern: "/photon init"
+    description: Initialize DB and directories (RUN FIRST!)
+  - name: setup
+    pattern: "/photon setup"
+    description: Setup cron jobs (user confirms once)
+  - name: setup-all
+    pattern: "/photon setup-all"
+    description: Setup all cron jobs at once
   - name: status
-    pattern: "/hip status"
-    description: View status
-  - name: config
-    pattern: "/hip config"
-    description: Show USER_CONFIG.md
-  - name: config reload
-    pattern: "/hip config reload"
-    description: Reload USER_CONFIG.md
-  - name: files
-    pattern: "/hip files"
-    description: Analyze files
-  - name: collect
-    pattern: "/hip collect"
-    description: Collect related files
+    pattern: "/photon status"
+    description: View memory status
+  - name: save
+    pattern: "/photon save"
+    description: Save current context
+  - name: recall
+    pattern: "/photon recall"
+    description: Precise recall
+  - name: checkpoint
+    pattern: "/photon checkpoint"
+    description: Save project state
+  - name: warn
+    pattern: "/photon warn"
+    description: Check failure patterns
+  - name: graph
+    pattern: "/photon graph"
+    description: View knowledge graph
