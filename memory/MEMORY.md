@@ -1,6 +1,6 @@
 # 记忆系统状态
 
-## 最后更新: 2026-03-22 09:46
+## 最后更新: 2026-03-22 23:00
 
 ### 系统状态
 
@@ -28,6 +28,27 @@
 
 ---
 
+## 【】标注规范（2026-03-22 确立）
+
+用户与助手在**长文档交互**时的核心标注工具。
+
+### 格式
+- 用户用【】在文档中标注问题/评论/待确认项
+- 助手在原文原处附近直接解答【问题+解答合并写入】
+- 【】具有高可见性，不同于普通注释
+
+### 助手执行规则
+1. 遇到【】→ 立即执行"文档解读 + 解答写入"任务
+2. 确认所有【】全部解决后方可结束任务
+3. 用户问"xx文档中的重点问题"→ 搜索【】标记定位历史交互
+4. 【】交互结论同步写入 public memory（带标注来源）
+
+### MEMORY.md 联动
+- 【】规范说明写在本文档头部
+- 重要【】讨论结论（如架构决策）同步摘要进对应主题章节
+
+---
+
 ## 用户偏好与工作习惯
 
 ### 报告撰写偏好
@@ -50,13 +71,40 @@
 
 ### LOTT 量化系统
 - **项目路径**: `X:\LOTT`
-- **数据库**: TimescaleDB (localhost:5432, lott, admin/admin123)
-- **模块**:
-  - timescale_config.py - 配置
-  - timescale_connection.py - 连接管理
-  - timescale_tables.py - 表结构
-  - json_importer.py - JSON导入
-  - timescale_examples.py - 示例
+- **数据库**: TimescaleDB (localhost:5432, lott, postgres/1211)
+- **连接串**: `postgresql+psycopg2://postgres:1211@localhost:5432/lott`
+
+### TimescaleDB 表结构（2026-03-22 讨论确定）
+**分表方式：市场 × timeframe（不是按合约/品种）**
+```
+df_1min / df_5min / df_1day（国内期货）
+ef_1min / ef_5min / ef_1day（国内ETF+LOF）
+intl_futures_1min / intl_etf_1min（国际市场）
+external_data（外部数据独立表）
+```
+**数据量：约185亿行/1min，5 timeframe合计约925亿行**
+**核心规范：所有查询必须带 time 过滤，否则全表扫描（分钟级）**
+
+### Data 模块架构（2026-03-22 重大调整）
+- **DataFeed**: SimNow 实时 Tick → TimescaleDB
+- **DataManage**: 中频数据（1min+）→ TimescaleDB（与 DataFeed 共用同一实例）
+- **DatabaseManage**: 降级为备份脚本目录（SQLite/PG/MySQL 备份）
+
+### TimescaleDB 表结构（2026-03-22 讨论结论）
+**长表方案**：`ohlcv_long` 单一超表，按 time 月分 chunk
+**融合方案（推荐）**：按 symbol 分区 `ohlcv_data`（PARTITION BY LIST），每合约每周期一张子表
+- 父表永远 0 行，数据通过 partition key 自动路由到子表
+- 无数据冲突问题（不同于老式 INHERITS）
+- 子表名路由：`pg_inherits` 系统表 + 元数据表 `symbol_registry`
+- 新合约：插入时发现无子表 → 自动建表
+
+### 关键结论
+| 结论 | 说明 |
+|------|------|
+| 父表永远0行 | PARTITION OF 机制，数据自动路由 |
+| UNION 复杂 | 分表查全市场需要 N 条 UNION ALL |
+| DDL 管理成本 | 分表方案新合约需要手动建子表 |
+| 融合方案最优 | 子表名路由 + 元数据表 + TimescaleDB chunk 自动管理 |
 
 ### 数据采集
 - SHFE: AkShare 可用，数据到2026-02-13
@@ -151,9 +199,17 @@
 
 ### 2026-03-22 日常工作 ✅
 - **记忆备份任务**: memory-backup-evening cron 任务成功执行
-- **新建记忆文件**: 2026-03-22.md
-- **Git 仓库**: 发现多个未跟踪文件待提交
-- **MemOS 数据库**: ~6.9MB (较昨日增长 0.3MB)
+- **新建记忆文件**: 2026-03-22.md, heartbeat-2026-03-22-0952.md
+- **Git 仓库**: 发现未跟踪文件待提交 (.openclaw/, feature-requests/, heartbeat文件)
+- **MemOS 数据库**: ~7.58MB (较昨日增长 0.7MB)
+- **Cron 任务**: hippocampus-photon-autosave 连续错误增加到 13 次，需关注
+
+### 2026-03-22 Heartbeat 检查结果 ✅
+- MemOS: 1个插件已加载, 0错误 ✅
+- 数据库: 7.58MB, 最后更新 2026-03-21 22:39 ✅
+- 传统记忆文件: 6个文件 ✅
+- 核心 Cron 任务: 全部正常 ✅
+- Hippocampus 任务: 2个任务仍有连续错误 ⚠️
 
 ### 2026-03-21 日常工作
 - **记忆备份检查**: 发现3月20日未备份，立即补做
