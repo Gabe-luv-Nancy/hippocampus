@@ -1,0 +1,71 @@
+---
+name: hippocampus
+version: 3.0.0
+description: >
+  Photon: AI-enhanced memory system that FIXES human memory flaws.
+  NO DECAY - AI never forgets.
+  Features: tool success tracking, project checkpoints, failure pattern warning, knowledge graph.
+  Philosophy: "AI is meant to FIX human memory flaws, why learn human decay?"
+
+author: GabetopZ
+homepage: https://github.com/Gabe-luv-Nancy/hippocampus
+license: MIT
+tags:
+  - memory
+  - photon
+  - checkpoint
+  - success-tracking
+  - failure-warning
+  - knowledge-graph
+
+events:
+  - session_end
+
+triggers:
+  - remember
+  - recall
+  - checkpoint
+  - warn
+
+type: skill
+
+runtime:
+  mode: instruction-first
+  code_on_demand: true
+
+permissions:
+  - read
+  - write
+  - exec
+
+dependencies:
+  - python3 >= 3.8
+
+commands:
+  - name: init
+    pattern: "/photon init"
+    description: Initialize DB and directories (RUN FIRST!)
+  - name: setup
+    pattern: "/photon setup"
+    description: Setup cron jobs (user confirms once)
+  - name: setup-all
+    pattern: "/photon setup-all"
+    description: Setup all cron jobs at once
+  - name: status
+    pattern: "/photon status"
+    description: View memory status
+  - name: save
+    pattern: "/photon save"
+    description: Save current context
+  - name: recall
+    pattern: "/photon recall"
+    description: Precise recall
+  - name: checkpoint
+    pattern: "/photon checkpoint"
+    description: Save project state
+  - name: warn
+    pattern: "/photon warn"
+    description: Check failure patterns
+  - name: graph
+    pattern: "/photon graph"
+    description: View knowledge graph
