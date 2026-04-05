@@ -1,0 +1,48 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          
+      - name: Get version
+        id: version
+        run: echo "VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_OUTPUT
+        
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            hippocampus-for-github.zip
+          draft: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          
+      - name: Generate release notes
+        run: |
+          cat << EOF > release_notes.md
+          # Hippocampus v${{ steps.version.outputs.VERSION }}
+          
+          ## What's New
+          
+          - Memory capture from multiple AI sources
+          - Local analyzer with TF-IDF search
+          - USB product support
+          
+          ## Installation
+          
+          See [README.md](README.md) for installation instructions.
+          EOF

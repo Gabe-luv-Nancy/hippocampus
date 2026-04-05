@@ -1,0 +1,63 @@
+# Clawhub 发布配置
+# 用于上传到 clawhub.ai
+
+name: hippocampus
+version: 3.2.0
+tag: v3.2
+display_name: "Hippocampus - AI 记忆增强"
+description: |
+  AI 记忆增强系统。核心理念：AI 应修复人类记忆缺陷，而非模仿它们。
+  
+  特性：
+  - No Decay: AI 永不遗忘
+  - 精确检索：时间戳而非"最近"
+  - 记忆抓取：自动收集各路 AI 的记忆文件
+  - 知识图谱：关联分析与发现
+  
+  命令：/photon status | /photon capture | /photon recall
+
+author: GabetopZ
+license: MIT
+homepage: https://github.com/Gabe-luv-Nancy/hippocampus
+repository: https://github.com/Gabe-luv-Nancy/hippocampus
+
+keywords:
+  - memory
+  - photon
+  - ai-memory
+  - knowledge-graph
+  - capture
+  - checkpoint
+
+platform: openclaw
+min_openclaw_version: "1.0.0"
+
+# 安装来源
+install_source: prompt  # 通过提示词安装
+
+# 触发关键词
+triggers:
+  - 安装 hippocampus
+  - /photon install
+  - 安装记忆系统
+  - 记忆增强
+
+# 依赖
+dependencies:
+  - python3 >= 3.8
+
+# 优先级
+priority: high
+
+# 特性标签
+features:
+  - ai-memory-capture
+  - dual-storage
+  - keyword-indexing
+  - knowledge-graph
+  - failure-warning
+  - checkpoint
+
+# 截图/预览
+# preview_images:
+#   - url: https://raw.githubusercontent.com/...

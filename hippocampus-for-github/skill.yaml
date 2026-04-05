@@ -1,0 +1,37 @@
+name: hippocampus
+version: 3.2.0
+description: |
+  Hippocampus: AI memory system that fixes human memory flaws.
+  No decay - AI never forgets. Features: capture, dual storage, precise retrieval.
+  Philosophy: "AI is meant to FIX human memory flaws, why learn human decay?"
+
+author: GabetopZ
+license: MIT
+homepage: https://github.com/Gabe-luv-Nancy/hippocampus
+
+tags:
+  - memory
+  - photon
+  - capture
+  - checkpoint
+  - knowledge-graph
+
+platform: openclaw
+
+runtime: instruction-first
+
+commands:
+  status:
+    pattern: /photon status
+  save:
+    pattern: /photon save
+  recall:
+    pattern: /photon recall
+  checkpoint:
+    pattern: /photon checkpoint
+  capture:
+    pattern: /photon capture
+  warn:
+    pattern: /photon warn
+  analyze:
+    pattern: /photon analyze

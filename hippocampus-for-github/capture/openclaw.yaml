@@ -1,0 +1,30 @@
+# OpenClaw AI 助手配置
+# 
+# OpenClaw 是一个本地 AI 助手框架
+# 记忆文件通常位于 ~/.openclaw/workspace/
+
+name: OpenClaw
+description: 本地 AI 助手 OpenClaw 的记忆文件
+
+# 抓取路径
+paths:
+  # 主记忆文件
+  - ~/.openclaw/workspace/MEMORY.md
+  - ~/.openclaw/workspace/SOUL.md
+  - ~/.openclaw/workspace/USER.md
+  - ~/.openclaw/workspace/IDENTITY.md
+  - ~/.openclaw/workspace/AGENTS.md
+  - ~/.openclaw/workspace/TOOLS.md
+  
+  # 日常记忆
+  - ~/.openclaw/workspace/memory/*.md
+  
+  # 项目记忆
+  - ~/.openclaw/workspace/projects/*/memory.md
+  - ~/.openclaw/workspace/projects/*/README.md
+
+# 文件优先级
+priority: 1
+
+# 是否启用
+enabled: true

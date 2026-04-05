@@ -1,0 +1,18 @@
+Hippocampus AI Memory Stick
+============================
+
+版本: v3.2
+产品: Hippocampus AI 记忆棒
+功能: 自动抓取并分析电脑上的 AI 助手记忆文件
+
+使用方法:
+1. 将本 U 盘插入电脑
+2. 双击运行 autorun.bat (Windows) 或 autorun.sh (Mac/Linux)
+3. 等待自动抓取和分析完成
+4. 查看 output 目录中的分析报告
+
+系统要求:
+- Windows 10+ / macOS 10.14+ / Linux
+- Python 3.8+ (可选，用于高级分析功能)
+
+官方地址: https://github.com/Gabe-luv-Nancy/hippocampus
