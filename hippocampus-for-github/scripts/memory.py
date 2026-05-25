@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Hippocampus V2 - Brain-Inspired Memory System
+Hippocampus V4.0.0 - Brain-Inspired Memory System
 ==============================================
 Merged version: Chronicle + Monograph with rich metadata
 - Dual storage: SQLite index + Markdown files
@@ -22,6 +22,13 @@ from pathlib import Path
 from typing import Dict, List, Optional, Any
 from collections import Counter
 
+# V4.2 Auto-Extract
+try:
+    from auto_extract import schema_generator, extract_runner
+    AUTO_EXTRACT_AVAILABLE = True
+except ImportError:
+    AUTO_EXTRACT_AVAILABLE = False
+
 # ============================================================================
 # Configuration - Read from USER_CONFIG.md
 # ============================================================================
@@ -35,7 +42,7 @@ DEFAULT_VALUES = {
     "ROUND_THRESHOLD": 25,
     "TIME_HOURS": 6,
     "TOKEN_THRESHOLD": 10000,
-    "./assets",
+    "BASE_PATH": "./assets",
     "CHRONICLE_DIR": "chronicle",
     "MONOGRAPH_DIR": "monograph",
     "INDEX_DIR": "index",
@@ -788,6 +795,8 @@ class Hippocampus:
             return self._cmd_init()
         elif command == "autocheck":
             return self._cmd_autocheck(context)
+        elif command == "extract":
+            return self._cmd_extract(args)
         
         # Natural language aliases - map to commands
         elif command in ["setup", "setup-all", "setup memory", "configure memory", "enable auto-save"]:
@@ -1312,6 +1321,19 @@ Synced {len(recent)} topics to MEMORY.md:
         except Exception as e:
             return f"❌ Sync failed: {str(e)}"
     
+    def _cmd_extract(self, args: str) -> str:
+        """Scan and backup user memory files"""
+        if not AUTO_EXTRACT_AVAILABLE:
+            return "❌ Auto-Extract 模块不可用"
+        
+        dry_run = "--dry-run" in args
+        try:
+            schema_generator.generate_user_schema()
+            extract_runner.run_extract(dry_run=dry_run)
+            return "✅ Extract 完成" if not dry_run else "✅ Dry-run 完成（无实际备份）"
+        except Exception as e:
+            return f"❌ Extract 失败: {e}"
+    
     def _help(self) -> str:
         config = get_config()
         before = config.get("BEFORE_ANSWER", "")
@@ -1335,6 +1357,7 @@ Synced {len(recent)} topics to MEMORY.md:
 | `/hip config reload` | Reload config |
 | `/hip files` | Analyze files |
 | `/hip collect` | Collect related files |
+| `/hip extract` | Scan and backup user memory files (--dry-run preview) |
 
 **Auto-triggers** (from USER_CONFIG.md):
 - {config.get('TIME_HOURS', 6)} hours

@@ -1,63 +1,84 @@
-# Clawhub 发布配置
-# 用于上传到 clawhub.ai
+# ClawHub Listing Configuration
+# Hippocampus ClawHub Version Metadata
 
 name: hippocampus
-version: 3.2.0
-tag: v3.2
-display_name: "Hippocampus - AI 记忆增强"
+display_name: Hippocampus
+tagline: AI Memory Enhancement — Fix human memory flaws, never forget
+
+version: 4.0.0
+
 description: |
-  AI 记忆增强系统。核心理念：AI 应修复人类记忆缺陷，而非模仿它们。
-  
-  特性：
-  - No Decay: AI 永不遗忘
-  - 精确检索：时间戳而非"最近"
-  - 记忆抓取：自动收集各路 AI 的记忆文件
-  - 知识图谱：关联分析与发现
-  
-  命令：/photon status | /photon capture | /photon recall
+  Hippocampus is an AI-enhanced memory system. Core philosophy: "AI should fix
+  human memory flaws, not emulate the decay characteristics of human memory."
+
+  Features:
+  - Dual-layer architecture: Chronicle (temporal) + Monograph (topic)
+  - Never forget: AI precise timestamps, permanent storage
+  - Proactive triggering: context-aware loading of relevant memories on high-frequency keywords
+  - Micro-Macro workflow: short commands map to complete operation flows
+  - Schema: AI task progress table with enforced check-off rules
 
 author: GabetopZ
-license: MIT
 homepage: https://github.com/Gabe-luv-Nancy/hippocampus
-repository: https://github.com/Gabe-luv-Nancy/hippocampus
+license: MIT
 
 keywords:
   - memory
-  - photon
   - ai-memory
-  - knowledge-graph
-  - capture
+  - photon
   - checkpoint
+  - openclaw-skill
+  - productivity
+  - schema
+  - task-management
 
-platform: openclaw
-min_openclaw_version: "1.0.0"
+categories:
+  - productivity
+  - developer-tools
+  - ai-tools
 
-# 安装来源
-install_source: prompt  # 通过提示词安装
-
-# 触发关键词
-triggers:
-  - 安装 hippocampus
-  - /photon install
-  - 安装记忆系统
-  - 记忆增强
-
-# 依赖
-dependencies:
+requirements:
   - python3 >= 3.8
+  - OpenClaw installed
 
-# 优先级
-priority: high
+installation:
+  type: prompt
+  prompt_file: PROMPT.md
+  target_path: ~/.openclaw/workspace/skills/hippocampus/
 
-# 特性标签
-features:
-  - ai-memory-capture
-  - dual-storage
-  - keyword-indexing
-  - knowledge-graph
-  - failure-warning
+compatibility:
+  openclaw: ">= 1.0.0"
+  os:
+    - linux
+    - darwin
+    - windows
+    - wsl
+
+commands:
+  - /hippo init
+  - /hippo status
+  - /hippo save
+  - /hippo recall
+  - /hippo checkpoint
+  - /hippo scan
+
+triggers:
+  - remember
+  - recall
   - checkpoint
+  - memory
+  - schema
 
-# 截图/预览
-# preview_images:
-#   - url: https://raw.githubusercontent.com/...
+changelog: |
+  ## v4.0.0 (2026-04-22)
+  - New Schema AI task progress table with enforced check-off rules
+  - Dual-end logging: client log + USB log fully traceable
+  - AI tool auto-discovery supports 12+ tools
+
+  ## v3.0.0 (2026-03-21)
+  - Photon rebrand, commands unified from /hip to /hippo
+  - Dual-layer architecture: Chronicle + Monograph
+  - Micro-Macro workflow
+  - Context-aware proactive triggering
+
+readme: SKILL.md

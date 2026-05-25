@@ -1,0 +1,103 @@
+# HIPPO V4 Schema 任务注册表
+# ED: 小爪 (Executive Director)
+# Updated: 2026-04-27
+
+tasks:
+  - id: HIPPO-20260420-001
+    title: 双版本自检 + 版本差异报告
+    status: done
+    assignee: ran
+    phase: v4.1
+    file_refs:
+      - path: /mnt/x/CLABIN/HIPPO/hippocampus-for-clawhub/PROMPT.md
+        verified: true
+    depends_on: []
+    notes: for-clawhub/PROMPT.md 生成中
+
+  - id: HIPPO-20260420-002
+    title: Schema 后端最小实现
+    status: proposed
+    assignee: bes
+    phase: v4.1
+    file_refs:
+      - path: /mnt/x/CLABIN/HIPPO/hippocampus-for-github/scripts/schema_backend.py
+        verified: false
+    depends_on: []
+    notes: 待派工
+
+  - id: HIPPO-20260420-003
+    title: Schema 前端 UI 规划
+    status: proposed
+    assignee: fep
+    phase: v4.1
+    file_refs:
+      - path: /mnt/x/CLABIN/HIPPO/hippocampus-for-github/frontend/schema_ui_design.md
+        verified: false
+    depends_on: []
+    notes: 待派工
+
+  - id: HIPPO-20260420-004
+    title: V4 规划文档完善
+    status: done
+    assignee: ed
+    phase: v4.1
+    file_refs:
+      - path: /mnt/x/CLABIN/HIPPO/PROJECTHOW/HIPPO_V4_SCHEMA_PLAN.md
+        verified: true
+    depends_on: []
+    notes: ""
+
+  - id: HIPPO-20260427-001
+    title: HIPPO组实例化 + 初始化
+    status: done
+    assignee: ed
+    phase: v4.1
+    file_refs: []
+    depends_on: []
+    notes: "2026-04-27 实例化 fep/bes/ran，智谱 Key 配置完成"
+
+  - id: HIPPO-20260512-001
+    title: AnswerSheet 可验证填表明文范式
+    status: done
+    assignee: hermes
+    phase: v5.0
+    file_refs:
+      - path: /mnt/x/CLABIN/HIPPO/AnswerSheet/README.md
+        verified: true
+      - path: /mnt/x/CLABIN/HIPPO/AnswerSheet/SPEC.md
+        verified: true
+      - path: /mnt/x/CLABIN/HIPPO/AnswerSheet/SKILL.md
+        verified: true
+      - path: /mnt/x/CLABIN/HIPPO/AnswerSheet/src/answersheet.py
+        verified: true
+      - path: /mnt/x/CLABIN/HIPPO/AnswerSheet/src/cli.py
+        verified: true
+      - path: /mnt/x/CLABIN/HIPPO/AnswerSheet/src/__init__.py
+        verified: true
+      - path: /mnt/x/CLABIN/HIPPO/AnswerSheet/tests/test_core.py
+        verified: true
+      - path: /mnt/x/CLABIN/HIPPO/AnswerSheet/examples/sample-supervised.md
+        verified: true
+      - path: /mnt/x/CLABIN/HIPPO/AnswerSheet/examples/sample-induction.md
+        verified: true
+      - path: /mnt/x/CLABIN/HIPPO/AnswerSheet/RESEARCH.md
+        verified: true
+    depends_on: []
+    notes: "2026-05-12 鱼总提出概念，赫墨执行。v1.0 完成: 引擎+CLI+23测试+规范+调研+SKILL.md"
+
+  - id: HIPPO-20260522-001
+    title: 记忆注入协议 v1.0 (Memory Injection Protocol)
+    status: done
+    assignee: hermes
+    phase: v5.0
+    file_refs:
+      - path: /mnt/x/CLABIN/HIPPO/PROJECTHOW/MEMORY_INJECTION_PROTOCOL.md
+        verified: true
+      - path: /mnt/x/CLABIN/HIPPO/PROJECTHOW/templates/hermes-skill-SKILL.md
+        verified: true
+      - path: /mnt/x/CLABIN/HIPPO/PROJECTHOW/templates/openclaw-prompt.md
+        verified: true
+      - path: /mnt/x/CLABIN/HIPPO/PROJECTHOW/templates/generic-agent-prompt.md
+        verified: true
+    depends_on: []
+    notes: "2026-05-22 赫墨设计并实现。核心创新：注入记忆习惯→产生记忆文件→HIPPO备份→用户发现价值→续费。含3平台注入模板。"

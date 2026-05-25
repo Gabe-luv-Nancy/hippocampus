@@ -1,0 +1,105 @@
+#!/bin/bash
+# ===========================================
+# 🦛 Hippocampus BrainDump v4.0.0
+# AI Memory Dump Drive — USB Edition
+# 
+# 主入口：双击此文件启动 Hippocampus
+# 支持：macOS / Linux
+# GUI: PyQt6 Desktop Application
+# ===========================================
+
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+MARKER_FILE="$SCRIPT_DIR/marker.txt"
+EXPECTED_MARKER="HIPPOCAMPUS_BRAINDUMP_v4.0.0"
+
+# ========== 静默检测 ==========
+# 非BrainDump磁盘不输出任何东西
+if [ ! -f "$MARKER_FILE" ]; then
+    exit 0
+fi
+
+MARKER_CONTENT=$(cat "$MARKER_FILE" | tr -d '[:space:]')
+if [ "$MARKER_CONTENT" != "$EXPECTED_MARKER" ]; then
+    exit 0
+fi
+
+# ========== 产品标识 ==========
+echo ""
+echo "  🦛 Hippocampus BrainDump v4.0.0"
+echo ""
+
+# ========== 检查数据库 ==========
+DB_FILE="$SCRIPT_DIR/db/brain_dump.sqlite"
+if [ ! -f "$DB_FILE" ]; then
+    echo "[错误] 数据库文件不存在"
+    read -p "按 Enter 退出..."
+    exit 1
+fi
+
+# ========== 创建必要目录 ==========
+mkdir -p "$SCRIPT_DIR/capture"
+mkdir -p "$SCRIPT_DIR/output"
+mkdir -p "$SCRIPT_DIR/log"
+
+# ========== 检查 Python ==========
+PYTHON_CMD=""
+if command -v python3 &> /dev/null; then
+    PYTHON_CMD="python3"
+elif command -v python &> /dev/null; then
+    PYTHON_CMD="python"
+fi
+
+# ========== 检查 PyQt6 ==========
+HAS_PYQT6=false
+if [ -n "$PYTHON_CMD" ]; then
+    $PYTHON_CMD -c "import PyQt6" 2>/dev/null && HAS_PYQT6=true
+fi
+
+# ========== 启动 ==========
+if [ "$HAS_PYQT6" = true ]; then
+    # 优先启动桌面GUI
+    cd "$SCRIPT_DIR"
+    $PYTHON_CMD gui_main.py --mode disk --path "$SCRIPT_DIR"
+else
+    # 没有PyQt6时显示菜单
+    echo "⚠️  未检测到 PyQt6"
+    echo ""
+    echo "  [1] 安装 PyQt6 后启动 GUI（推荐）"
+    echo "  [2] 启动 HTTP API 服务（浏览器访问 http://127.0.0.1:8080）"
+    echo "  [3] 检查数据完整性"
+    echo "  [4] 退出"
+    echo ""
+    read -p "请选择 (1-4): " CHOICE
+
+    case "$CHOICE" in
+        1)
+            echo "正在安装 PyQt6..."
+            $PYTHON_CMD -m pip install PyQt6 2>&1 | tail -5
+            if [ $? -eq 0 ]; then
+                echo "安装成功，正在启动 GUI..."
+                cd "$SCRIPT_DIR"
+                $PYTHON_CMD gui_main.py --mode disk --path "$SCRIPT_DIR"
+            else
+                echo "[错误] PyQt6 安装失败"
+                read -p "按 Enter 退出..."
+            fi
+            ;;
+        2)
+            if [ -n "$PYTHON_CMD" ]; then
+                cd "$SCRIPT_DIR"
+                $PYTHON_CMD server.py --port 8080
+            else
+                echo "[错误] 未检测到 Python"
+                read -p "按 Enter 退出..."
+            fi
+            ;;
+        3)
+            bash "$SCRIPT_DIR/bin/receive.sh"
+            ;;
+        *)
+            exit 0
+            ;;
+    esac
+fi
+
+exit 0

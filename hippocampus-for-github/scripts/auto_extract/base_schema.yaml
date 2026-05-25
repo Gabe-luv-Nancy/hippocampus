@@ -1,0 +1,114 @@
+version: "1.0"
+description: "HIPPO official path skeleton — v4.2 Auto-Extract baseline"
+schema_type: base
+
+# ============================================================
+# SECTION 1: OpenClaw Core Files
+# ============================================================
+paths:
+  - path: "~/.openclaw/workspace/MEMORY.md"
+    type: "core_file"
+    description: "Long-term memory (MemOS)"
+
+  - path: "~/.openclaw/workspace/SOUL.md"
+    type: "core_file"
+    description: "Agent persona and soul"
+
+  - path: "~/.openclaw/workspace/AGENTS.md"
+    type: "core_file"
+    description: "ED role definition and organizational structure"
+
+  - path: "~/.openclaw/workspace/IDENTITY.md"
+    type: "core_file"
+    description: "Agent identity and naming"
+
+  - path: "~/.openclaw/workspace/USER.md"
+    type: "core_file"
+    description: "User profile and preferences"
+
+  - path: "~/.openclaw/workspace/BOOTSTRAP.md"
+    type: "core_file"
+    description: "Boot configuration"
+
+  - path: "~/.openclaw/workspace/TOOLS.md"
+    type: "core_file"
+    description: "Environment-specific tool notes"
+
+  - path: "~/.openclaw/workspace/HEARTBEAT.md"
+    type: "core_file"
+    description: "Heartbeat status and health markers"
+
+  - path: "~/.openclaw/workspace/.programmer_toggle.yaml"
+    type: "core_file"
+    description: "Programmer group enable/disable switches"
+
+  # ============================================================
+  # SECTION 2: OpenClaw Workspace Subdirectories
+  # ============================================================
+  - path: "~/.openclaw/workspace/memory/"
+    type: "core_directory"
+    description: "Daily session records"
+
+  - path: "~/.openclaw/workspace/skills/"
+    type: "core_directory"
+    description: "Custom agent skills"
+
+  - path: "~/.openclaw/workspace/specialist/"
+    type: "core_directory"
+    description: "Specialist workspace"
+
+  - path: "~/.openclaw/workspace/scripts/"
+    type: "core_directory"
+    description: "Automation and helper scripts"
+
+  # ============================================================
+  # SECTION 3: OpenClaw agents / sessions
+  # ============================================================
+  - path: "~/.openclaw/agents/"
+    type: "core_directory"
+    description: "Agent configurations"
+
+  - path: "~/.openclaw/sessions/"
+    type: "core_directory"
+    description: "Session history"
+
+  # ============================================================
+  # SECTION 4: HIPPO Project (Official Install Paths)
+  # ============================================================
+  - path: "/mnt/x/CLABIN/HIPPO/hippocampus-for-github/"
+    type: "project"
+    description: "HIPPO full-code version for GitHub release"
+
+  - path: "/mnt/x/CLABIN/HIPPO/hippocampus-for-clawhub/"
+    type: "project"
+    description: "HIPPO text-only version for ClawHub distribution"
+
+  - path: "/mnt/x/CLABIN/HIPPO/hippocampus-for-usb/"
+    type: "project"
+    description: "HIPPO USB edition for offline distribution"
+
+  - path: "/mnt/x/CLABIN/HIPPO/PROJECTHOW/"
+    type: "project"
+    description: "HIPPO project how-to documentation"
+
+  - path: "/mnt/x/CLABIN/HIPPO/HIPPOHOW/"
+    type: "project"
+    description: "HIPPO usage guides and reference"
+
+  # ============================================================
+  # SECTION 5: Skill Definitions
+  # ============================================================
+  - path: "~/.openclaw/workspace/skills/*/SKILL.md"
+    type: "skill"
+    description: "Custom skill definitions in workspace"
+
+  - path: "~/.npm-global/lib/node_modules/openclaw/skills/*/SKILL.md"
+    type: "skill"
+    description: "Built-in OpenClaw skill definitions"
+
+  # ============================================================
+  # EXCLUDED — Runtime-generated directories (do NOT backup)
+  # ============================================================
+  # assets/hippocampus/chronicle/   — auto-generated at runtime
+  # assets/hippocampus/monograph/   — auto-generated at runtime
+  # assets/hippocampus/index/      — auto-generated at runtime

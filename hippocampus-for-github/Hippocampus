@@ -1,0 +1,55 @@
+#!/bin/bash
+# ===========================================
+# 🦛 Hippocampus v4.0.0 — GitHub Edition
+# 本地AI记忆备份工具
+# 
+# 主入口：双击此文件启动
+# 支持：macOS / Linux
+# ===========================================
+
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+
+# 检查 Python
+PYTHON_CMD=""
+if command -v python3 &> /dev/null; then
+    PYTHON_CMD="python3"
+elif command -v python &> /dev/null; then
+    PYTHON_CMD="python"
+fi
+
+if [ -z "$PYTHON_CMD" ]; then
+    echo "[错误] 未检测到 Python，请安装 Python 3.9+"
+    read -p "按 Enter 退出..."
+    exit 1
+fi
+
+# 检查 PyQt6
+HAS_PYQT6=false
+$PYTHON_CMD -c "import PyQt6" 2>/dev/null && HAS_PYQT6=true
+
+if [ "$HAS_PYQT6" = true ]; then
+    cd "$SCRIPT_DIR"
+    $PYTHON_CMD gui_main.py --mode local
+else
+    echo "⚠️  未检测到 PyQt6"
+    echo ""
+    echo "  [1] 安装 PyQt6 后启动 GUI（推荐）"
+    echo "  [2] 退出"
+    echo ""
+    read -p "请选择 (1-2): " CHOICE
+    case "$CHOICE" in
+        1)
+            echo "正在安装 PyQt6..."
+            $PYTHON_CMD -m pip install PyQt6 2>&1 | tail -5
+            if [ $? -eq 0 ]; then
+                cd "$SCRIPT_DIR"
+                $PYTHON_CMD gui_main.py --mode local
+            fi
+            ;;
+        *)
+            exit 0
+            ;;
+    esac
+fi
+exit 0
+

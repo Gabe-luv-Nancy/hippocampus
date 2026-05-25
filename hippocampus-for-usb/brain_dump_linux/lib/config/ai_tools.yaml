@@ -1,0 +1,168 @@
+# Hippocampus AI Tools Configuration
+# ===================================
+# 定义各 AI 工具的记忆文件路径
+# 支持的字段：name, display_name, enabled, priority, paths
+
+ai_tools:
+  # ========== Hermes Agent ==========
+  - name: "hermes"
+    display_name: "Hermes Agent"
+    enabled: true
+    priority: high
+    description: "Hermes Agent AI 助手记忆文件"
+    paths:
+      - path: "~/.hermes/"
+        type: "directory"
+        description: "Hermes Agent 主目录"
+
+  # ========== OpenClaw ==========
+  - name: "openclaw"
+    display_name: "OpenClaw"
+    enabled: true
+    priority: high
+    description: "OpenClaw AI 助手记忆文件"
+    paths:
+      - path: "~/.openclaw/workspace/memory/"
+        type: "directory"
+        description: "OpenClaw 日志记忆目录"
+      - path: "~/.openclaw/workspace/MEMORY.md"
+        type: "file"
+        description: "OpenClaw 主记忆文件"
+      - path: "~/.openclaw/workspace/USER.md"
+        type: "file"
+        description: "用户配置"
+      - path: "~/.openclaw/workspace/SOUL.md"
+        type: "file"
+        description: "AI 灵魂配置"
+      - path: "~/.openclaw/workspace/AGENTS.md"
+        type: "file"
+        description: "工作区代理配置"
+      - path: "~/.openclaw/workspace/HEARTBEAT.md"
+        type: "file"
+        description: "心跳监控配置"
+      - path: "~/.openclaw/workspace/memory/*.md"
+        type: "glob"
+        description: "日志记忆文件"
+
+  # ========== 豆包 ==========
+  - name: "doubao"
+    display_name: "豆包"
+    enabled: true
+    priority: medium
+    description: "字节跳动豆包"
+    paths:
+      - path: "~/.doubao/memory/"
+        type: "directory"
+        description: "豆包记忆目录"
+      - path: "~/.doubao/workspace/"
+        type: "directory"
+        description: "豆包工作区"
+      - path: "~/Library/Application Support/doubao/memory/"
+        type: "directory"
+        description: "macOS 豆包记忆"
+
+  # ========== Kimi ==========
+  - name: "kimi"
+    display_name: "Kimi"
+    enabled: true
+    priority: medium
+    description: "月之暗面 Kimi"
+    paths:
+      - path: "~/.kimi/memory/"
+        type: "directory"
+        description: "Kimi 记忆目录"
+      - path: "~/.kimi/workspace/"
+        type: "directory"
+        description: "Kimi 工作区"
+
+  # ========== 通义千问 ==========
+  - name: "qwen"
+    display_name: "通义千问"
+    enabled: true
+    priority: medium
+    description: "阿里通义千问"
+    paths:
+      - path: "~/.qwen/memory/"
+        type: "directory"
+        description: "通义千问记忆目录"
+      - path: "~/.qwen/workspace/"
+        type: "directory"
+        description: "通义千问工作区"
+
+  # ========== 元宝 ==========
+  - name: "yuanbao"
+    display_name: "元宝"
+    enabled: true
+    priority: low
+    description: "腾讯元宝"
+    paths:
+      - path: "~/.yuanbao/memory/"
+        type: "directory"
+        description: "元宝记忆目录"
+      - path: "~/.yuanbao/workspace/"
+        type: "directory"
+        description: "元宝工作区"
+
+  # ========== 讯飞星火 ==========
+  - name: "xfyun"
+    display_name: "讯飞星火"
+    enabled: true
+    priority: low
+    description: "科大讯飞星火"
+    paths:
+      - path: "~/.xfyun/memory/"
+        type: "directory"
+        description: "讯飞星火记忆目录"
+      - path: "~/.xfyun/workspace/"
+        type: "directory"
+        description: "讯飞星火工作区"
+
+  # ========== DeepSeek ==========
+  - name: "deepseek"
+    display_name: "DeepSeek"
+    enabled: true
+    priority: medium
+    description: "DeepSeek"
+    paths:
+      - path: "~/.deepseek/memory/"
+        type: "directory"
+        description: "DeepSeek 记忆目录"
+      - path: "~/.deepseek/workspace/"
+        type: "directory"
+        description: "DeepSeek 工作区"
+
+  # ========== Claude ==========
+  - name: "claude"
+    display_name: "Claude"
+    enabled: true
+    priority: medium
+    description: "Anthropic Claude"
+    paths:
+      - path: "~/.claude/memory/"
+        type: "directory"
+        description: "Claude 记忆目录"
+      - path: "~/Library/Application Support/Claude/"
+        type: "directory"
+        description: "macOS Claude 配置"
+
+  # ========== ChatGPT ==========
+  - name: "chatgpt"
+    display_name: "ChatGPT"
+    enabled: false
+    priority: low
+    description: "OpenAI ChatGPT"
+    paths:
+      - path: "~/Library/Application Support/ChatGPT/"
+        type: "directory"
+        description: "macOS ChatGPT 数据"
+
+  # ========== Gemini ==========
+  - name: "gemini"
+    display_name: "Gemini"
+    enabled: false
+    priority: low
+    description: "Google Gemini"
+    paths:
+      - path: "~/.gemini/memory/"
+        type: "directory"
+        description: "Gemini 记忆目录"

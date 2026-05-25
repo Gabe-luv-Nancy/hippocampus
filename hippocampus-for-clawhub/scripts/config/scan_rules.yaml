@@ -1,0 +1,153 @@
+# Hippocampus Scan Rules Configuration
+# ====================================
+# 定义文件扫描规则
+
+scan:
+  # 全局文件大小限制
+  min_file_size: 10        # bytes，忽略太小文件
+  max_file_size: 5242880   # 5MB，避免扫描 dump 大文件
+
+  # 排除路径模式（glob 格式）
+  exclude_paths:
+    # 构建产物
+    - "**/node_modules/**"
+    - "**/.git/**"
+    - "**/dist/**"
+    - "**/build/**"
+    - "**/__pycache__/**"
+    - "**/.pytest_cache/**"
+    - "**/.mypy_cache/**"
+    - "**/.tox/**"
+    - "**/venv/**"
+    - "**/.venv/**"
+    - "**/.env/**"
+    
+    # 包管理器锁定文件（不是记忆文件）
+    - "**/package-lock.json"
+    - "**/yarn.lock"
+    - "**/poetry.lock"
+    - "**/pip-lock.json"
+    - "**/Gemfile.lock"
+    - "**/composer.lock"
+    
+    # 日志和临时文件
+    - "**/*.log"
+    - "**/*.tmp"
+    - "**/*.temp"
+    - "**/.cache/**"
+    - "**/tmp/**"
+    
+    # IDE 和编辑器
+    - "**/.idea/**"
+    - "**/.vscode/**"
+    - "**/.vscode-server/**"
+    - "**/*.swp"
+    - "**/*.swo"
+    - "**/*~"
+    
+    # 二进制和压缩文件（通常不是 .md）
+    - "**/*.pdf"
+    - "**/*.doc"
+    - "**/*.docx"
+    - "**/*.xls"
+    - "**/*.xlsx"
+    - "**/*.zip"
+    - "**/*.tar"
+    - "**/*.gz"
+    - "**/*.rar"
+
+  # 排除文件名模式
+  exclude_names:
+    - "package-lock.json"
+    - "yarn.lock"
+    - "poetry.lock"
+    - "*.lock"
+    - "*.log"
+    - "*.tmp"
+    - "*.cache"
+
+  # 包含规则（按优先级从高到低）
+  include_rules:
+    # ===== 高优先级：OpenClaw 精确路径 =====
+    - name: "openclaw_memory_dir"
+      path_pattern: "~/.openclaw/workspace/memory/**/*.md"
+      confidence: 3
+      source: "openclaw"
+      description: "OpenClaw 记忆目录"
+
+    - name: "openclaw_root_md"
+      path_pattern: "~/.openclaw/workspace/*.md"
+      confidence: 2
+      source: "openclaw"
+      description: "OpenClaw 工作区根目录 .md 文件"
+
+    # ===== 中优先级：各 AI 工具 memory 目录 =====
+    - name: "ai_memory_dir"
+      path_pattern: "~/.{}/memory/**/*.md"
+      confidence: 2
+      source: "ai_tool"
+      description: "AI 工具 memory 目录（通配）"
+
+    - name: "ai_workspace_md"
+      path_pattern: "~/.{}/workspace/**/*.md"
+      confidence: 2
+      source: "ai_tool"
+      description: "AI 工具工作区 .md 文件"
+
+    # ===== 低优先级：通用 .md 文件（需要内容验证）=====
+    - name: "generic_markdown_memory"
+      path_pattern: "**/*.md"
+      confidence: 1
+      source: "generic"
+      require_content_match:
+        - "memory"
+        - "remember"
+        - "note"
+        - "log"
+        - "chronicle"
+        - "monograph"
+        - "diary"
+        - "journal"
+        - "checkpoint"
+        - "todo"
+        - "task"
+        - "plan"
+      description: "通用 .md 文件（需内容包含记忆关键词）"
+
+    # ===== 特殊：通用笔记文件（高信任）=====
+    - name: "generic_notebook"
+      path_pattern: "**/*.md"
+      confidence: 1
+      source: "generic"
+      exclude_paths:
+        - "**/node_modules/**"
+        - "**/.git/**"
+        - "**/dist/**"
+        - "**/build/**"
+      require_content_match:
+        - "note"
+        - "笔记"
+        - "记录"
+        - "总结"
+        - "摘录"
+      description: "通用笔记文件"
+
+# 扫描行为配置
+behavior:
+  follow_symlinks: false       # 不跟随符号链接
+  max_depth: 10                # 最大递归深度
+  scan_hidden_dirs: true        # 扫描隐藏目录（如 ~/.openclaw）
+  scan_hidden_files: true       # 扫描隐藏文件
+
+# 输出配置
+output:
+  save_manifest: true          # 保存扫描清单
+  save_summary: true            # 保存汇总报告
+  copy_files: false             # 是否复制文件（USB 写入时为 true）
+
+# USB 写入配置
+usb:
+  marker_content: "HIPPOCAMPUS_BRAINDUMP_v4.0.0"
+  db_filename: "brain_dump.sqlite"
+  capture_subdir: "capture"
+  output_subdir: "output"

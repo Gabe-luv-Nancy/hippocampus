@@ -1,0 +1,52 @@
+# HIPPO V4 Task Registry
+# Task ID format: HIPPO-YYYYMMDD-NNN
+# ED manages this file. Programmers do not modify directly.
+
+tasks:
+  - id: HIPPO-20260420-001
+    title: 双版本自检 + 版本差异报告
+    status: done
+    assignee: ran
+    phase: v4.1
+    file_refs:
+      - path: /mnt/x/CLABIN/HIPPO/hippocampus-for-clawhub/PROMPT.md
+        verified: true
+    depends_on: []
+
+  - id: HIPPO-20260420-002
+    title: Schema 后端最小实现
+    status: done
+    assignee: bes
+    phase: v4.1
+    file_refs:
+      - path: /mnt/x/CLABIN/HIPPO/hippocampus-for-github/scripts/task_schema/schema_models.py
+        verified: true
+      - path: /mnt/x/CLABIN/HIPPO/hippocampus-for-github/scripts/task_schema/validator.py
+        verified: true
+      - path: /mnt/x/CLABIN/HIPPO/hippocampus-for-github/scripts/task_schema/registry.py
+        verified: true
+      - path: /mnt/x/CLABIN/HIPPO/hippocampus-for-github/scripts/task_schema/registry.yaml
+        verified: true
+      - path: /mnt/x/CLABIN/HIPPO/hippocampus-for-github/scripts/task_schema/README.md
+        verified: true
+    depends_on:
+      - HIPPO-20260420-004
+
+  - id: HIPPO-20260420-003
+    title: Schema 前端 UI 规划
+    status: proposed
+    assignee: fep
+    phase: v4.1
+    file_refs: []
+    depends_on:
+      - HIPPO-20260420-002
+
+  - id: HIPPO-20260420-004
+    title: V4 规划文档完善
+    status: done
+    assignee: ed
+    phase: v4.1
+    file_refs:
+      - path: /mnt/x/CLABIN/HIPPO/PROJECTHOW/HIPPO_V4_SCHEMA_PLAN.md
+        verified: true
+    depends_on: []

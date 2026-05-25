@@ -1,0 +1,17 @@
+__pycache__/
+*.pyc
+*.pyo
+*.sqlite
+*.db
+*.whl
+*.zip
+deps/
+python/
+*.egg-info/
+.pytest_cache/
+BACKUP FROM PREVIOUS DEPRECATED/
+brain_memo_pipeline/
+github-workspace/
+BRAINHOW/
+HIPPOHOW/
+WEBSITE/

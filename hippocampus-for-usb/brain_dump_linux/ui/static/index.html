@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hippocampus BrainDump v4.0.0</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-left">
+                <div class="logo">
+                    <span class="logo-icon">🧠</span>
+                    <div class="logo-text">
+                        <h1>BrainDump</h1>
+                        <span class="logo-sub">AI Memory Storage</span>
+                    </div>
+                </div>
+            </div>
+            <div class="header-right">
+                <span class="version-badge">v4.0.0</span>
+                <button class="btn-icon" onclick="refreshAll()" title="刷新">🔄</button>
+            </div>
+        </header>
+
+        <!-- Dashboard Stats -->
+        <section class="stats-grid" id="stats-section">
+            <div class="stat-card stat-primary">
+                <div class="stat-icon">📁</div>
+                <div class="stat-info">
+                    <div class="stat-value" id="stat-files">--</div>
+                    <div class="stat-label">记忆文件</div>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">💾</div>
+                <div class="stat-info">
+                    <div class="stat-value" id="stat-size">--</div>
+                    <div class="stat-label">总大小</div>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">🔄</div>
+                <div class="stat-info">
+                    <div class="stat-value" id="stat-captures">--</div>
+                    <div class="stat-label">抓取次数</div>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">🤖</div>
+                <div class="stat-info">
+                    <div class="stat-value" id="stat-sources">--</div>
+                    <div class="stat-label">AI 来源</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Expandable: Embedded Model Section -->
+        <section class="expandable-section">
+            <button class="expandable-header" onclick="toggleSection('model-section')">
+                <span class="expand-icon" id="model-section-icon">▶</span>
+                <span class="expand-title">🤖 嵌入式模型（扩展功能）</span>
+                <span class="expand-badge">预留</span>
+            </button>
+            <div class="expandable-content" id="model-section" style="display: none;">
+                <div class="placeholder-content">
+                    <div class="placeholder-icon">🔮</div>
+                    <p>嵌入式 AI 模型区域</p>
+                    <ul class="placeholder-list">
+                        <li>本地向量数据库（Qdrant / Chroma）</li>
+                        <li>记忆检索增强（RAG）</li>
+                        <li>语义搜索能力</li>
+                        <li>未来扩展预留空间</li>
+                    </ul>
+                    <div class="future-tag">即将支持 ✨</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Main Content: Tabs -->
+        <nav class="tabs">
+            <button class="tab-btn active" data-tab="browser" onclick="switchTab('browser')">
+                📂 文件浏览器
+            </button>
+            <button class="tab-btn" data-tab="host" onclick="switchTab('host')">
+                🖥️ 主机检测
+            </button>
+            <button class="tab-btn" data-tab="history" onclick="switchTab('history')">
+                📜 抓取历史
+            </button>
+        </nav>
+
+        <!-- Tab Content -->
+        <div class="tab-content">
+            <!-- File Browser Tab -->
+            <div class="tab-panel active" id="tab-browser">
+                <div class="source-filter" id="source-filter">
+                    <button class="filter-btn active" data-source="all" onclick="filterBySource('all')">全部</button>
+                </div>
+                <div class="file-list" id="file-list">
+                    <div class="loading">加载中...</div>
+                </div>
+            </div>
+
+            <!-- Host Detection Tab -->
+            <div class="tab-panel" id="tab-host">
+                <div class="host-panel">
+                    <div class="panel-header">
+                        <h3>🔍 检测主机上的 AI 工具</h3>
+                        <button class="btn-primary" onclick="detectTools()">
+                            <span id="detect-btn-text">开始检测</span>
+                        </button>
+                    </div>
+                    
+                    <div class="detected-tools" id="detected-tools">
+                        <div class="empty-state">
+                            <p>点击上方按钮检测主机上的 AI 工具</p>
+                        </div>
+                    </div>
+
+                    <div class="scan-section" id="scan-section" style="display: none;">
+                        <div class="panel-header">
+                            <h3>📡 扫描记忆文件</h3>
+                        </div>
+                        <div class="scan-options">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="scan-all" checked onchange="toggleScanAll()">
+                                扫描全部来源
+                            </label>
+                        </div>
+                        <div class="scan-sources" id="scan-sources"></div>
+                        <button class="btn-primary scan-btn" onclick="startScan()">
+                            <span id="scan-btn-text">🔍 扫描选中的来源</span>
+                        </button>
+                    </div>
+
+                    <div class="scan-results" id="scan-results" style="display: none;">
+                        <div class="panel-header">
+                            <h3>📋 扫描结果</h3>
+                            <span class="result-count" id="result-count">0 个文件</span>
+                        </div>
+                        <div class="result-actions">
+                            <button class="btn-secondary" onclick="selectAll()">全选</button>
+                            <button class="btn-secondary" onclick="selectNone()">取消全选</button>
+                        </div>
+                        <div class="result-list" id="result-list"></div>
+                        <button class="btn-primary backup-btn" id="backup-btn" onclick="backupSelected()" disabled>
+                            💾 备份选中文件
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- History Tab -->
+            <div class="tab-panel" id="tab-history">
+                <div class="history-list" id="history-list">
+                    <div class="loading">加载中...</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Status Bar -->
+        <footer class="status-bar">
+            <span class="status-text" id="status-text">就绪</span>
+            <span class="status-time" id="status-time">--</span>
+        </footer>
+    </div>
+
+    <!-- File Preview Modal -->
+    <div class="modal" id="preview-modal" style="display: none;">
+        <div class="modal-content modal-large">
+            <div class="modal-header">
+                <h3 id="preview-title">文件预览</h3>
+                <button class="btn-icon" onclick="closePreview()">✕</button>
+            </div>
+            <div class="modal-body">
+                <pre id="preview-content" class="code-preview"></pre>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
